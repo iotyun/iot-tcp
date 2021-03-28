@@ -23,7 +23,8 @@
     },
     "require": {
         "php": ">=7.1.0",
-        "ext-openssl": "*"
+        "ext-openssl": "*",
+        "workerman/gateway-worker": "^3.0"
     },
 	"autoload": {
         "psr-4": {
