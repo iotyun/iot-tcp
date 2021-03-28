@@ -24,7 +24,7 @@
     "require": {
         "php": ">=7.1.0",
         "ext-openssl": "*",
-        "workerman/gateway-worker": "^3.0"
+        "workerman/gateway-worker": "^3.0.0"
     },
 	"autoload": {
         "psr-4": {
