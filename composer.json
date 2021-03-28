@@ -28,7 +28,7 @@
     },
 	"autoload": {
         "psr-4": {
-            "iotyun\\huaweiiot\\": "src/"
+            "iotyun\\iot-tcp\\": "src/"
         }
     },
 
