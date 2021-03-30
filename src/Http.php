@@ -8,7 +8,7 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-namespace think\worker;
+namespace iotyun\iot_tcp;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
