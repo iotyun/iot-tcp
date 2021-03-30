@@ -32,7 +32,7 @@
     },
 	"autoload": {
         "psr-4": {
-            "iotyun\\iot-tcp\\": "src/"
+            "iotyun\\iot-tcp\\": "src"
         }
     },
     "extra": {
