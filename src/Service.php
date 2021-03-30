@@ -11,7 +11,7 @@
 namespace iotyun\tcp;
 
 use think\Service as BaseService;
-use iotyun\tcp\command\Worker;
+use iotyun\tcp\command;
 
 class Service extends BaseService
 {
