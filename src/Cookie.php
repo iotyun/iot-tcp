@@ -8,7 +8,7 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-namespace iotyun\iot_tcp;
+namespace iotyun\tcp;
 
 use think\Cookie as BaseCookie;
 use Workerman\Protocols\Http as WorkerHttp;

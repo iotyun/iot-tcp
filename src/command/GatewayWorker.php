@@ -9,7 +9,7 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-namespace iotyun\iot_tcp\command;
+namespace iotyun\tcp\command;
 
 use GatewayWorker\BusinessWorker;
 use GatewayWorker\Gateway;

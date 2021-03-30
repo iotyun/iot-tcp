@@ -8,7 +8,7 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-namespace iotyun\iot_tcp;
+namespace iotyun\tcp;
 
 use GatewayWorker\Lib\Gateway;
 use Workerman\Worker;

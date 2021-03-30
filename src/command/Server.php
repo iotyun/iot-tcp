@@ -9,7 +9,7 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-namespace iotyun\iot_tcp\command;
+namespace iotyun\tcp\command;
 
 use think\console\Command;
 use think\console\Input;
@@ -18,7 +18,7 @@ use think\console\input\Option;
 use think\console\Output;
 use think\facade\App;
 use think\facade\Config;
-use iotyun\iot_tcp\Server as WorkerServer;
+use iotyun\tcp\Server as WorkerServer;
 use Workerman\Worker;
 
 /**

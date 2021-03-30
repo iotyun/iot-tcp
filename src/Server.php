@@ -9,7 +9,7 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-namespace iotyun\iot_tcp;
+namespace iotyun\tcp;
 
 use Workerman\Worker;
 

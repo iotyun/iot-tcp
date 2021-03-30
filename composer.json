@@ -32,13 +32,13 @@
     },
 	"autoload": {
         "psr-4": {
-            "iotyun\\iot-tcp\\": "src"
+            "iotyun\\tcp\\": "src"
         }
     },
     "extra": {
         "think":{
             "services":[
-                "iotyun\\iot-tcp\\Service"
+                "iotyun\\tcp\\Service"
             ],
             "config":{
                 "worker": "src/config/worker.php",
