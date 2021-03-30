@@ -8,18 +8,18 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-namespace think\worker;
+namespace iotyun\iot_tcp;
 
-use think\Service as BaseService;
+use iotyun\Service as BaseService;
 
 class Service extends BaseService
 {
     public function register()
     {
         $this->commands([
-            'worker'         => '\\think\\worker\\command\\Worker',
-            'worker:server'  => '\\think\\worker\\command\\Server',
-            'worker:gateway' => '\\think\\worker\\command\\GatewayWorker',
+            'worker'         => '\\iotyun\\iot-tcp\\command\\Worker',
+            'worker:server'  => '\\iotyun\\iot-tcp\\command\\Server',
+            'worker:gateway' => '\\iotyun\\iot-tcp\\command\\GatewayWorker',
         ]);
     }
 }
