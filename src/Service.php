@@ -10,7 +10,7 @@
 // +----------------------------------------------------------------------
 namespace iotyun\iot_tcp;
 
-use iotyun\Service as BaseService;
+use think\Service as BaseService;
 
 class Service extends BaseService
 {
