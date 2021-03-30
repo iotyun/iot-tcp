@@ -11,15 +11,14 @@
 namespace iotyun\tcp;
 
 use think\Service as BaseService;
+use iotyun\command\Worker;
 
 class Service extends BaseService
 {
     public function register()
     {
         $this->commands([
-            'worker'         => '\\iotyun\\iot-tcp\\command\\Worker',
-            'worker:server'  => '\\iotyun\\iot-tcp\\command\\Server',
-            'worker:gateway' => '\\iotyun\\iot-tcp\\command\\GatewayWorker',
+            'worker'::Worker,
         ]);
     }
 }
