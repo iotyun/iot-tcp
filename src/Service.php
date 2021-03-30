@@ -17,9 +17,7 @@ class Service extends BaseService
     public function register()
     {
         $this->commands([
-            'worker'         => 'iotyun\\tcp\\command\\Worker',
-            'worker:server'  => 'iotyun\\tcp\\command\\Server',
-            'worker:gateway' => 'iotyun\\tcp\\command\\GatewayWorker',
+            'IotyunTcp' => 'iotyun\\tcp\\command\\tcp',
         ]);
     }
 }
