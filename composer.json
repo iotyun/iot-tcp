@@ -24,11 +24,25 @@
     "require": {
         "php": ">=7.1.0",
         "ext-openssl": "*",
-        "workerman/gateway-worker": "^3.0.0"
+        "workerman/gateway-worker": "^3.0.0",
+        "workerman/gatewayclient": "^3.0.13"
+        
     },
 	"autoload": {
         "psr-4": {
             "iotyun\\iot-tcp\\": "src/"
+        }
+    },
+    "extra": {
+        "think":{
+            "services":[
+                "iotyun\\iot-tcp\\Service"
+            ],
+            "config":{
+                "worker": "src/config/worker.php",
+                "worker_server": "src/config/server.php",
+                "gateway_worker": "src/config/gateway.php"
+            }
         }
     },
 
