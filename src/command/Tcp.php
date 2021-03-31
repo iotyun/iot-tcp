@@ -60,7 +60,7 @@ class Tcp extends Command
             $output->writeln('Starting GatewayWorker server...');
         }
 
-        $option = Config::get('gateway_worker');
+        $option = Config::get('iotyun_tcp');
 
         if ($input->hasOption('host')) {
             $host = $input->getOption('host');
@@ -161,14 +161,14 @@ class Tcp extends Command
         $gateway = new Gateway($socket, $option['context'] ?? []);
 
         // 以下设置参数都可以在配置文件中重新定义覆盖
-        $gateway->name                 = 'Gateway';
+        $gateway->name                 = 'iotyun_tcp';
         $gateway->count                = 4;
         $gateway->lanIp                = '127.0.0.1';
-        $gateway->startPort            = 2000;
-        $gateway->pingInterval         = 30;
-        $gateway->pingNotResponseLimit = 0;
-        $gateway->pingData             = '{"type":"ping"}';
-        $gateway->registerAddress      = $registerAddress;
+        $gateway->startPort            = 2900;
+        //$gateway->pingInterval         = 30;
+        //$gateway->pingNotResponseLimit = 0;
+        //$gateway->pingData             = '{"type":"ping"}';
+        //$gateway->registerAddress      = $registerAddress;
 
         // 全局静态属性设置
         foreach ($option as $name => $val) {

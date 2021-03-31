@@ -43,7 +43,7 @@
             "config":{
                 "worker": "src/config/worker.php",
                 "worker_server": "src/config/server.php",
-                "gateway_worker": "src/config/gateway.php"
+                "iotyun_tcp": "src/config/gateway.php"
             }
         }
     },
