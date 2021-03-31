@@ -13,7 +13,7 @@
 // +----------------------------------------------------------------------
 return [
     // 扩展自身需要的配置
-    'protocol'              => 'tcp', // 协议 支持 tcp udp unix http websocket text
+    'protocol'              => 'tcp', // 当前只支持TCP协议
     'host'                  => '0.0.0.0', // 监听地址
     'port'                  => 8996, // 监听端口
     'socket'                => '', // 完整监听地址
@@ -40,7 +40,7 @@ return [
     'businessWorker'        => [
         'name'         => 'BusinessWorker', //可以设置BusinessWorker进程的名称，方便status命令中查看统计
         'count'        => 1,    //可以设置BusinessWorker进程的数量，以便充分利用多cpu资源
-        'eventHandler' => '\think\worker\Events',   //
+        'eventHandler' => '\iotyun\tcp\Events',   //
     ],
 
 ];
