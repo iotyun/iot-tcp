@@ -41,8 +41,7 @@
                 "iotyun\\tcp\\Service"
             ],
             "config":{
-                "worker": "src/config/worker.php",
-                "worker_server": "src/config/server.php",
+                "tcp_callback": "src/config/tcp_callback.php",
                 "iotyun_tcp": "src/config/gateway.php"
             }
         }
