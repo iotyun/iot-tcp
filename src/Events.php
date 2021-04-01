@@ -46,7 +46,7 @@ class Events
     {
         Gateway::sendToCurrentClient("Your client_id is $client_id");
         
-            call_user_func('app\demo\controller\MessageRequest::index', $client_id);
+            call_user_func('app\demo\controller\MessageRequest::index', $this);
             
             event('onConnect');
     }
