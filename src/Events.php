@@ -12,12 +12,14 @@ namespace iotyun\tcp;
 
 use GatewayWorker\Lib\Gateway;
 use Workerman\Worker;
+use think\facade\Config;
 
 /**
  * Worker 命令行服务类
  */
 class Events
 {
+    //protected $config = Config::get('tcp_callback');
     /**
      * onWorkerStart 事件回调
      * 当businessWorker进程启动时触发。每个进程生命周期内都只会触发一次
@@ -43,6 +45,9 @@ class Events
     public static function onConnect($client_id)
     {
         Gateway::sendToCurrentClient("Your client_id is $client_id");
+        
+            call_user_func('app\demo\controller\MessageRequest', "111");
+        
     }
 
     /**
