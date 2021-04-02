@@ -13,7 +13,7 @@ namespace iotyun\tcp;
 use GatewayWorker\Lib\Gateway;
 use Workerman\Worker;
 use think\facade\Config;
-
+use app\demo\controller;
 /**
  * Worker 命令行服务类
  */
