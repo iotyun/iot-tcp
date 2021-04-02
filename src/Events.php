@@ -13,6 +13,7 @@ namespace iotyun\tcp;
 use GatewayWorker\Lib\Gateway;
 use Workerman\Worker;
 use think\facade\Config;
+use think\facade\Event;
 
 /**
  * Worker 命令行服务类
@@ -45,7 +46,8 @@ class Events
     public static function onConnect($client_id)
     {
         Gateway::sendToCurrentClient("Your client_id is $client_id");
-        event('Connect');
+        //event('Connect');
+        Event::trigger('Connect', $client_id);
     }
 
     /**
