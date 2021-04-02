@@ -41,7 +41,7 @@ class Tcp extends Command
     {
         $action = $input->getArgument('action');
 
-        if (DIRECTORY_SEPARATOR !== '\\') {
+        //if (DIRECTORY_SEPARATOR !== '\\') {
             if (!in_array($action, ['start', 'stop', 'reload', 'restart', 'status', 'connections'])) {
                 $output->writeln("Invalid argument action:{$action}, Expected start|stop|restart|reload|status|connections .");
                 exit(1);
@@ -51,10 +51,10 @@ class Tcp extends Command
             array_shift($argv);
             array_shift($argv);
             array_unshift($argv, 'think', $action);
-        } else {
-            $output->writeln("GatewayWorker Not Support On Windows.");
-            exit(1);
-        }
+        //} else {
+        //    $output->writeln("GatewayWorker Not Support On Windows.");
+        //    exit(1);
+        //}
 
         if ('start' == $action) {
             $output->writeln('Starting GatewayWorker server...');
@@ -88,7 +88,7 @@ class Tcp extends Command
     public function start(string $host, int $port, array $option = [])
     {
         $registerAddress = !empty($option['registerAddress']) ? $option['registerAddress'] : '127.0.0.1:1236';
-
+        if (DIRECTORY_SEPARATOR !== '\\') {
         if (!empty($option['register_deploy'])) {
             // 分布式部署的时候其它服务器可以关闭register服务
             // 注意需要设置不同的lanIp
@@ -104,8 +104,32 @@ class Tcp extends Command
         if (!empty($option['gateway_deploy'])) {
             $this->gateway($registerAddress, $host, $port, $option);
         }
+        
+            Worker::runAll();
+        }
+        else
+        {
+            if (!empty($option['register_deploy'])) {
+                // 分布式部署的时候其它服务器可以关闭register服务
+                // 注意需要设置不同的lanIp
+                $this->register($registerAddress);
+            }
+            Worker::runAll();
+            // 启动businessWorker
+            if (!empty($option['businessWorker_deploy'])) {
+                $this->businessWorker($registerAddress, $option['businessWorker'] ?? []);
+            }
+            Worker::runAll();
+            // 启动gateway
+            if (!empty($option['gateway_deploy'])) {
+                $this->gateway($registerAddress, $host, $port, $option);
+            }
+            Worker::runAll();
 
-        Worker::runAll();
+
+        }
+
+        
     }
 
     /**
