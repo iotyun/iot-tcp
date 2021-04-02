@@ -48,6 +48,7 @@ class Events
         Gateway::sendToCurrentClient("Your client_id is $client_id");
         //event('Connect');
         Event::trigger('Connect', $client_id);
+        
     }
 
     /**
