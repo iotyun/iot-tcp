@@ -45,7 +45,8 @@ class Events
     public static function onConnect($client_id)
     {
         Gateway::sendToCurrentClient("Your client_id is $client_id");
-        event('onConnect');
+        event('Connect');
+        Event::subscribe('app\demo\subscribe\User');
     }
 
     /**
