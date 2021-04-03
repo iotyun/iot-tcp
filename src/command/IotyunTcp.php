@@ -6,34 +6,59 @@
 
 namespace iotyun\tcp\command;
 
+
 ini_set('display_errors', 'on');
+
+
+use GatewayWorker\BusinessWorker;
+use GatewayWorker\Gateway;
+use GatewayWorker\Register;
+use think\console\Command;
+use think\console\Input;
+use think\console\input\Argument;
+use think\console\input\Option;
+use think\console\Output;
+use think\facade\Config;
 use Workerman\Worker;
 
-if(strpos(strtolower(PHP_OS), 'win') === 0)
+
+class IotyunTcp extends Command
 {
-    exit("start.php not support windows, please use start_for_win.bat\n");
+
+    public function execute(Input $input, Output $output)
+    {
+        if(strpos(strtolower(PHP_OS), 'win') === 0)
+        {
+            exit("start.php not support windows, please use start_for_win.bat\n");
+        }
+        
+        // 检查扩展
+        if(!extension_loaded('pcntl'))
+        {
+            exit("Please install pcntl extension. See http://doc3.workerman.net/appendices/install-extension.html\n");
+        }
+        
+        if(!extension_loaded('posix'))
+        {
+            exit("Please install posix extension. See http://doc3.workerman.net/appendices/install-extension.html\n");
+        }
+        
+        // 标记是全局启动
+        define('GLOBAL_START', 1);
+    }
+
+    public function start(string $host, int $port, array $option = [])
+    {
+
+        //require_once __DIR__ . '/vendor/autoload.php';
+
+        // 加载所有Applications/*/start.php，以便启动所有服务
+        foreach(glob(__DIR__.'/start*.php') as $start_file)
+        {
+            require_once $start_file;
+        }
+        // 运行所有服务
+        Worker::runAll();
+    }
 }
 
-// 检查扩展
-if(!extension_loaded('pcntl'))
-{
-    exit("Please install pcntl extension. See http://doc3.workerman.net/appendices/install-extension.html\n");
-}
-
-if(!extension_loaded('posix'))
-{
-    exit("Please install posix extension. See http://doc3.workerman.net/appendices/install-extension.html\n");
-}
-
-// 标记是全局启动
-define('GLOBAL_START', 1);
-
-//require_once __DIR__ . '/vendor/autoload.php';
-
-// 加载所有Applications/*/start.php，以便启动所有服务
-foreach(glob(__DIR__.'/start*.php') as $start_file)
-{
-    require_once $start_file;
-}
-// 运行所有服务
-Worker::runAll();
