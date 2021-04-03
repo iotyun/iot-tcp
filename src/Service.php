@@ -17,7 +17,7 @@ class Service extends BaseService
     public function register()
     {
         $this->commands([
-            'IotyunTcp' => 'iotyun\\tcp\\command\\Tcp',
+            'IotyunTcp' => 'iotyun\\tcp\\command\\IotyunTcp',
         ]);
     }
 }
