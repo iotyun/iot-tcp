@@ -47,8 +47,9 @@ class Events
     {
         Gateway::sendToCurrentClient("Your client_id is $client_id");
         //event('Connect');
-        Event::trigger('Connect', $client_id);
-        
+        //Event::trigger('Connect', $client_id);
+
+        call_user_func('app\demo\controller\IotRequest', $client_id);
     }
 
     /**
