@@ -49,7 +49,7 @@ class Events
         //event('Connect');
         //Event::trigger('Connect', $client_id);
 
-        call_user_func('\\app\\demo\\controller\\IotRequest::index', $client_id);
+        call_user_func_array(array("\app\demo\controller\IotRequest", "index"), array($client_id));
     }
 
     /**
