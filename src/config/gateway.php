@@ -29,18 +29,18 @@ return [
     'name'                  => 'iotyun_tcp',  // gateway名称，status方便查看
     'count'                 => 1,   // gateway进程数
     'lanIp'                 => '127.0.0.1', // 本机ip，分布式部署时使用内网ip
-    'startPort'             => 2900,    // 内部通讯起始端口，假如$gateway->count=4，起始端口为4000
+    'startPort'             => 4000,    // 内部通讯起始端口，假如$gateway->count=4，起始端口为4000
     // 则一般会使用4000 4001 4002 4003 4个端口作为内部通讯端口 
     'daemonize'             => false,
-    //'pingInterval'          => 30,  // 心跳间隔
-    //'pingNotResponseLimit'  => 0,   //pingNotResponseLimit = 0代表服务端允许客户端不发送心跳，服务端不会因为客户端长时间没发送数据而断开连接。如果pingNotResponseLimit = 1，则代表客户端必须定时发送数据给服务端，否则pingNotResponseLimit*pingInterval=55秒内没有任何数据发来则关闭对应连接，并触发onClose。
-    //'pingData'              => '{"type":"ping"}',   // 心跳数据
+    'pingInterval'          => 55,  // 心跳间隔
+    'pingNotResponseLimit'  => 1,   //pingNotResponseLimit = 0代表服务端允许客户端不发送心跳，服务端不会因为客户端长时间没发送数据而断开连接。如果pingNotResponseLimit = 1，则代表客户端必须定时发送数据给服务端，否则pingNotResponseLimit*pingInterval=55秒内没有任何数据发来则关闭对应连接，并触发onClose。
+    'pingData'              => '',   // 心跳数据
 
     // BusinsessWorker配置
     'businessWorker'        => [
         'name'         => 'BusinessWorker', //可以设置BusinessWorker进程的名称，方便status命令中查看统计
         'count'        => 1,    //可以设置BusinessWorker进程的数量，以便充分利用多cpu资源
-        'eventHandler' => '\iotyun\tcp\Events',   //
+        'eventHandler' => 'app\demo\controller\Events',   //app\demo\controller\Events     iotyun\tcp\Events
     ],
 
 ];
