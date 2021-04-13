@@ -47,9 +47,9 @@ class Events
     {
         Gateway::sendToCurrentClient("Your client_id is $client_id");
         //event('Connect');
-        //Event::trigger('Connect', $client_id);
+        Event::trigger('IotTcpConnect', $client_id);
 
-        call_user_func_array(array("\app\demo\controller\IotRequest", "index"), array($client_id));
+        call_user_func_array(array("\app\demo\controller\IotRequest", "test"), array($client_id));
     }
 
     /**
@@ -77,6 +77,7 @@ class Events
     public static function onMessage($client_id, $data)
     {
         Gateway::sendToAll($data);
+		Event::trigger('IotTcpMessage', $client_id);
     }
 
     /**
