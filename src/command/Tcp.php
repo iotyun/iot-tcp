@@ -21,6 +21,7 @@ use think\console\input\Option;
 use think\console\Output;
 use think\facade\Config;
 use Workerman\Worker;
+use Workerman\Crontab\Crontab;
 
 /**
  * Worker 命令行类
@@ -89,21 +90,28 @@ class Tcp extends Command
     {
         $registerAddress = !empty($option['registerAddress']) ? $option['registerAddress'] : '127.0.0.1:1236';
         if (DIRECTORY_SEPARATOR !== '\\') {
-        if (!empty($option['register_deploy'])) {
-            // 分布式部署的时候其它服务器可以关闭register服务
-            // 注意需要设置不同的lanIp
-            $this->register($registerAddress);
-        }
+			if (!empty($option['register_deploy'])) {
+				// 分布式部署的时候其它服务器可以关闭register服务
+				// 注意需要设置不同的lanIp
+				$this->register($registerAddress);
+			}
 
-        // 启动businessWorker
-        if (!empty($option['businessWorker_deploy'])) {
-            $this->businessWorker($registerAddress, $option['businessWorker'] ?? []);
-        }
+			// 启动businessWorker
+			if (!empty($option['businessWorker_deploy'])) {
+				$this->businessWorker($registerAddress, $option['businessWorker'] ?? []);
+			}
 
-        // 启动gateway
-        if (!empty($option['gateway_deploy'])) {
-            $this->gateway($registerAddress, $host, $port, $option);
-        }
+			// 启动gateway
+			if (!empty($option['gateway_deploy'])) {
+				$this->gateway($registerAddress, $host, $port, $option);
+			}
+			
+			// 启动Crontab
+			if (!empty($option['crontab'])) {
+				$this->taskCrontab($option);
+			}
+			
+			
         
             Worker::runAll();
         }
@@ -220,6 +228,22 @@ class Tcp extends Command
                 $worker->$key = $val;
             }
         }
+    }
+	
+	/**
+     * 设置Crontab
+     * @access protected
+     * @param  Worker $worker Worker对象
+     * @param  array  $option 参数
+     * @return void
+     */
+    protected function taskCrontab(array $option = [])
+    {
+        $worker = new Worker();
+		// 设置时区，避免运行结果与预期不一致
+		date_default_timezone_set('PRC');
+		//$option = Config::get('iotyun_tcp');
+		$worker->onWorkerStart = array($option['crontab_class'], $option['crontab_function']);
     }
 
 }
