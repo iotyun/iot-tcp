@@ -21,13 +21,15 @@ use think\console\input\Option;
 use think\console\Output;
 use think\facade\Config;
 use Workerman\Worker;
-use Workerman\Crontab\Crontab;
+use Workerman\Lib\Timer;
+//use Workerman\Crontab\Crontab;
 
 /**
  * Worker 命令行类
  */
 class Tcp extends Command
 {
+	
     public function configure()
     {
         $this->setName('worker:gateway')
@@ -109,6 +111,8 @@ class Tcp extends Command
 			// 启动Crontab
 			if (!empty($option['crontab'])) {
 				$this->taskCrontab($option);
+				//$this->FileMonitor();
+				require_once __DIR__ . '/../crontab/FileMonitor/start.php';
 			}
 			
 			
@@ -243,7 +247,48 @@ class Tcp extends Command
 		// 设置时区，避免运行结果与预期不一致
 		date_default_timezone_set('PRC');
 		//$option = Config::get('iotyun_tcp');
-		$worker->onWorkerStart = array($option['crontab_class'], $option['crontab_function']);
+		$worker->onWorkerStart = array('iotyun\tcp\command\Task', 'taskLoad');
+		$worker->name = 'Crontab';
+    }
+	
+	/**
+     * 自动更新json文件
+     * @access protected
+     * @param  Worker $worker Worker对象
+     * @param  array  $option 参数
+     * @return void
+     */
+	private $_last_time = 0;
+    protected function FileMonitor()
+    {
+		$file = realpath(__DIR__ . '/../crontab/data/jobs.json');
+        $this->_last_time = filemtime($file);
+		
+		$worker_file = new Worker();
+		$worker_file->name = 'FileMonitor';
+		$worker_file->reloadable = false;
+
+		$worker_file->onWorkerStart = function()
+        {
+            Timer::add(1, array($this, 'monitor'));
+        };
+    }
+	
+	//监听器，kill进程
+    public function monitor ()
+    {
+        
+		$file = realpath(__DIR__ . '/../crontab/data/jobs.json');
+		echo filemtime($file);
+		// check mtime
+		if ($this->_last_time < filemtime($file))
+		{
+			echo $file." update and reload\n";
+			// send SIGUSR1 signal to master process for reload
+			posix_kill(posix_getppid(), SIGUSR1);
+			$last_mtime = $file->getMTime();
+		}
+        
     }
 
 }

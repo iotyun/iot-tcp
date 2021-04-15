@@ -1,0 +1,8 @@
+[
+	{"name":"测试 - 计划任务测试11","type":"http_get","command":"http://service.mjngs.com/pdf/tt","status":"on","cron":{"i":"3","h":"*","d":"*","m":"*","w":"*","y":"*"}},
+	{"name":"测试 - 计划任务测试2","type":"http_get","command":"http://service.mjngs.com/pdf/yy","status":"off","cron":{"i":"23","h":"*","d":"*","m":"*","w":"*","y":"*"}},
+	{"name":"测试 - 计划任务测试2","type":"http_get","command":"http://service.mjngs.com/pdf/yy","status":"off","cron":{"i":"43","h":"*","d":"*","m":"*","w":"*","y":"*"}},
+	{"name":"测试 - 计划任务测试2","type":"http_get","command":"http://service.mjngs.com/pdf/yy","status":"off","cron":{"i":"53","h":"*","d":"*","m":"*","w":"*","y":"*"}},
+	{"name":"测试 - 计划任务测试2","type":"http_get","command":"http://service.mjngs.com/pdf/yy","status":"off","cron":{"i":"33","h":"*","d":"*","m":"*","w":"*","y":"*"}},
+	{"name":"测试 - 计划任务测试2","type":"http_get","command":"http://service.mjngs.com/pdf/yy","status":"off","cron":{"i":"13","h":"*","d":"*","m":"*","w":"*","y":"*"}}
+]
