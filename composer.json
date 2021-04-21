@@ -29,7 +29,7 @@
         "workerman/gateway-worker": "^3.0.0",
         "workerman/gatewayclient": "^3.0.13",
         "workerman/crontab": "^1.0",
-        "iotyun/iot-protocol": "^0.0.14"
+        "iotyun/iot-protocol": "^0.0.15"
     },
 	"autoload": {
         "psr-4": {
