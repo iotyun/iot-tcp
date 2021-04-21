@@ -24,6 +24,7 @@ function check_files_change($file)
 {
     global $last_mtime;
 	echo $file;
+	echo filemtime($file);
     // recursive traversal directory
 
         if($last_mtime < filemtime($file))

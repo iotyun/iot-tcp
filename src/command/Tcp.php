@@ -22,6 +22,9 @@ use think\console\Output;
 use think\facade\Config;
 use Workerman\Worker;
 use Workerman\Lib\Timer;
+
+use \RecursiveDirectoryIterator;
+use \RecursiveIteratorIterator;
 //use Workerman\Crontab\Crontab;
 
 /**
@@ -112,7 +115,7 @@ class Tcp extends Command
 			if (!empty($option['crontab'])) {
 				$this->taskCrontab($option);
 				//$this->FileMonitor();
-				require_once __DIR__ . '/../crontab/FileMonitor/start.php';
+				require_once __DIR__ . '/../crontab/FileMonitor/start_json.php';
 			}
 			
 			
@@ -258,9 +261,11 @@ class Tcp extends Command
      * @param  array  $option 参数
      * @return void
      */
-	private $_last_time = 0;
+	
+	private $last_mtime = 0;
     protected function FileMonitor()
     {
+		$monitor_dir = realpath(__DIR__ . '/../crontab/data');
 		$file = realpath(__DIR__ . '/../crontab/data/jobs.json');
         $this->_last_time = filemtime($file);
 		
@@ -278,16 +283,40 @@ class Tcp extends Command
     public function monitor ()
     {
         
-		$file = realpath(__DIR__ . '/../crontab/data/jobs.json');
-		echo filemtime($file);
-		// check mtime
-		if ($this->_last_time < filemtime($file))
+		//$file = realpath(__DIR__ . '/../crontab/data/jobs.json');
+		//echo filemtime($file);
+		$monitor_dir = realpath(__DIR__ . '/../crontab/data');
+		$dir_iterator = new RecursiveDirectoryIterator($monitor_dir);
+		$iterator = new RecursiveIteratorIterator($dir_iterator);
+		foreach ($iterator as $file)
 		{
-			echo $file." update and reload\n";
-			// send SIGUSR1 signal to master process for reload
-			posix_kill(posix_getppid(), SIGUSR1);
-			$last_mtime = $file->getMTime();
+			// only check php files
+			if(pathinfo($file, PATHINFO_EXTENSION) != 'json')
+			{
+				continue;
+			}
+			echo $file->getMTime();
+			// check mtime
+			if($this->last_mtime < $file->getMTime())
+			{
+				echo $file." update and reload\n";
+				// send SIGUSR1 signal to master process for reload
+				posix_kill(posix_getppid(), SIGUSR1);
+				$this->last_mtime = $file->getMTime();
+				break;
+			}
 		}
+		
+		
+		
+		// check mtime
+		// if ($this->_last_time < filemtime($file))
+		// {
+			// echo $file." update and reload\n";
+			//send SIGUSR1 signal to master process for reload
+			// posix_kill(posix_getppid(), SIGUSR1);
+			// $last_mtime = $file->getMTime();
+		// }
         
     }
 
