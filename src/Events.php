@@ -14,6 +14,7 @@ use GatewayWorker\Lib\Gateway;
 use Workerman\Worker;
 use think\facade\Config;
 use think\facade\Event;
+use think\facade\Log;
 
 /**
  * Worker 命令行服务类
