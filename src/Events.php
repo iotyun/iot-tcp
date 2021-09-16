@@ -76,6 +76,7 @@ class Events
      */
     public static function onMessage($client_id, $data)
     {
+        Log::channel('iottcp')->info("client_id：" . $client_id . "data:" . bin2hex($data));	//原始信息记入日志
         Gateway::sendToAll($data);
 		Event::trigger('IotTcpMessage', $client_id);
     }
